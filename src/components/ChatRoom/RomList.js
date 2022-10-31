@@ -1,15 +1,39 @@
 import React from 'react'
-import {  Collapse, Typography } from 'antd'
+import { Collapse, Typography,Button } from 'antd'
+import styled from 'styled-components'
+import { PlusSquareOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
+
+const PanelStyled = styled(Panel)`
+    &&& {
+        .ant-collapse-header, p{
+            color:#fff;
+        }
+
+        .ant-collapse-content-box {
+            padding:0 40px;
+        }
+        .add-room {
+            color:#fff;
+            padding:0;
+        }
+    }
+`;
+const LinkStyled = styled(Typography.Link)`
+    display: block;
+    margin: 0px 0px 15px 0;
+`;
+
 export default function RomList() {
     return (
-        <Collapse defaultActiveKey={['1']}>
-            <Panel header="Danh sach cac phong" key="1">
-                <Typography.Link>Room 1</Typography.Link>
-                <Typography.Link>Room 2</Typography.Link>
-                <Typography.Link>Room 3</Typography.Link>
-            </Panel>
+        <Collapse ghost defaultActiveKey={['1']}>
+            <PanelStyled header="Danh sach cac phong" key="1">
+                <LinkStyled>Room 1</LinkStyled>
+                <LinkStyled>Room 2</LinkStyled>
+                <LinkStyled>Room 3</LinkStyled>
+                <Button type='text' icon={<PlusSquareOutlined />} ghost className='add-room'>Them Phong</Button>
+            </PanelStyled>
         </Collapse>
     )
 }
