@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Avatar, Typography } from 'antd'
 import styled from 'styled-components'
 import { auth, db } from '../../firebase/config';
+import { AuthContext } from '../../Context/AuthProvider';
 
 const WrapperStyled = styled.div`
     display:flex;
@@ -14,22 +15,14 @@ const WrapperStyled = styled.div`
 `;
 
 export default function UserInfo() {
-
-    React.useEffect(() => {
-        db.collection('users').onSnapshot((snapshot) => {
-            //cover du lieu thuan firebase thanh ojb js 
-            const data = snapshot.docs.map(doc => ({
-                ...doc.data(),
-                id: doc.id
-            }))
-        })
-
-    }, [])
+    const {
+        user: { displayName, photoURL },
+    } = React.useContext(AuthContext);
     return (
         <WrapperStyled>
             <div>
-                <Avatar >A</Avatar>
-                <Typography.Text className='useName'>Ngoc Anh</Typography.Text>
+                <Avatar src={photoURL}>{photoURL ? "" : displayName && displayName.charAt(0)?.toUpperCase()}</Avatar>
+                <Typography.Text className='useName'>{displayName}</Typography.Text>
             </div>
             <Button ghost className='buttonLogout' onClick={() => auth.signOut()}>Dang Xuat</Button>
         </WrapperStyled>
