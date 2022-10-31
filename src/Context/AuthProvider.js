@@ -23,7 +23,7 @@ export default function AuthProvider({ children }) {
                 navigate('/');
                 return;
             }
-
+            setIsLoading(false);
             navigate('/login');
         });
 
